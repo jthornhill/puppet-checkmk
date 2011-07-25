@@ -1,0 +1,14 @@
+<% mktags = [] -%>
+<% system "host #{fqdn}" -%>
+<% if $? != 0 then -%>
+ipaddresses["<%= fqdn -%>"] = "<%= ipaddress %>"
+<% mktags << "brokendns" -%>
+<% end -%>
+<% scope.to_hash.keys.each do |k| -%>
+<% if k.include?("check_mk_tags") -%>
+<% mktags << scope.to_hash[k] -%>
+<% end -%>
+<% end -%>
+all_hosts += [
+    "<%= fqdn -%>|<%= mktags.join('|') %>",
+]
