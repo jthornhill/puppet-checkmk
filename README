@@ -1,3 +1,5 @@
 Puppet module to manage check_mk
 
 This should probably be called check_mk, not checkmk. Feel free to fix it :)
+
+For information about how to use this, see: http://weblog.etherized.com/posts/186
