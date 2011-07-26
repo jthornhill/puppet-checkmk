@@ -57,6 +57,10 @@ class checkmk::agent {
 }
 
 class checkmk::server {
+    if $mk_confdir {
+    } else {
+        $mk_confdir = "/etc/check_mk/conf.d/puppet"
+    }
     # ths exec statement will cause check_mk to regenerate the nagios config when new nodes are added
     exec { "checkmk_refresh":
         command => "/usr/bin/check_mk -O",
@@ -76,6 +80,7 @@ class checkmk::server {
     file { "$mk_confdir":
         ensure => directory,
         purge => true,
+        recurse => true,
         notify => Exec["checkmk_refresh"],
     }
 }
