@@ -85,12 +85,18 @@ class checkmk::server {
         refreshonly => true,
     }
 
-    # this check uses the $nagios_server variable to determine where resources should be collected
-    # i.e.: $nagios_server must be the same on a nagios server and on nagios clients
+    # this class uses the $nagios_server variable to determine where resources should be collected
+    # i.e.: $nagios_server must be the same on a nagios server and on the clients
 
     # if you have more than one nagios server managing the same sets of clients you can set this to 
     # a string used by all of them, and assign the IPs or FQDNs of the servers directly in the xinetd
     # template instead of using the $nagios_server variable to set the ACL there
+
+    if $::nagios_server {
+        $nagios_server = "$::nagios_server"
+    } else {
+        $nagios_server = "10.1.1.1"
+    }
     
     # collect the exported resource from the clients; each one will have a corresponding config file
     # placed on the check_mk server

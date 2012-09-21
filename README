@@ -1,5 +1,15 @@
-Puppet module to manage check_mk
+*******
+Update 2012/09/21
+
+The module now uses the nagios_server variable to determine where resources are collected, so you may manage multiple nagios servers and collect a subset of systems on each. Please ensure that this variable is set to be the same on both your nagios server and on your clients even if you only have one nagios server! Previously, this variable was not actually required to be set on the nagios server itself.
+
+It is possible now to manually override the IP address nagios uses to check a node; use the variable $checkmk_override_ip to do this.
+
+I have also attempted to properly scope variables in preparation for 2.8. I am unclear on whether the scope.to_hash.keys.each stuff in the template will actually continue to work, but it is my understanding that it should. If anybody is attempting to use this on puppet >= 2.8, please report your results.
+*******
+
+This is a puppet module to manage check_mk
 
 This should probably be called check_mk, not checkmk. Feel free to fix it :)
 
-For information about how to use this, see: http://weblog.etherized.com/posts/186
+For more information about how to use this, see: http://weblog.etherized.com/posts/186
