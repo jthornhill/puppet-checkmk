@@ -1,7 +1,7 @@
 <% mktags = [] -%>
-<% system "host #{fqdn}" -%>
-<% if $? != 0 then -%>
-ipaddresses["<%= fqdn -%>"] = "<%= ipaddress %>"
+<% system "host #{mkhostname}" -%>
+<% if (has_variable?("checkmk_no_resolve") || ( $? != 0 )) then -%>
+ipaddresses["<%= mkhostname -%>"] = "<%= override_ip %>"
 <% mktags << "brokendns" -%>
 <% end -%>
 <% scope.to_hash.keys.each do |k| -%>
@@ -10,5 +10,5 @@ ipaddresses["<%= fqdn -%>"] = "<%= ipaddress %>"
 <% end -%>
 <% end -%>
 all_hosts += [
-    "<%= fqdn -%>|<%= mktags.join('|') %>",
+    "<%= mkhostname -%>|<%= mktags.sort.join('|') %>",
 ]
